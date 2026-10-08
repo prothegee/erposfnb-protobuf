@@ -1,0 +1,329 @@
+syntax = "proto3";
+
+package erposfnb.warehouse;
+
+import "common/common.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/prothegee/erposfnb-protobuf/warehouse";
+
+// Location is one warehouse branch, the row the gateway calls a location.
+message Location {
+  string id = 1;
+  string id_ref = 2;
+  string id_warehouse = 3;
+  string name = 4;
+  string name_display = 5;
+  bool banned = 6;
+  string banned_reason = 7;
+  string contact_email = 8;
+  string contact_phone = 9;
+  double latitude = 10;
+  double longitude = 11;
+  string pub_path = 12;
+  string pub_pict = 13;
+}
+
+// Supplier is one vendor that a purchase order buys from.
+message Supplier {
+  string id = 1;
+  string id_warehouse = 2;
+  string name = 3;
+  string contact_name = 4;
+  string contact_email = 5;
+  string contact_phone = 6;
+  string address = 7;
+}
+
+// Stock is a stock row of one warehouse branch.
+// It uses the same whole unit plus per unit weight model as pos stock.
+message Stock {
+  string id = 1;
+  string id_warehouse = 2;
+  string id_branch = 3;
+  string name = 4;
+  int64 quantity = 5;
+  int64 quantity_warning = 6;
+  string thumbnail = 7;
+  string description = 8;
+  string category = 9;
+  repeated string tags = 10;
+  bool out_of_stock = 11;
+  string extra_info = 12;
+  double weight = 13;
+  double weight_deduct = 14;
+  erposfnb.common.MeasureType weight_unit = 15;
+  double dimension_x = 16;
+  double dimension_y = 17;
+  double dimension_z = 18;
+  erposfnb.common.LengthType dimension_unit = 19;
+}
+
+// PurchaseOrderLine is one stock line of a purchase order.
+message PurchaseOrderLine {
+  string id = 1;
+  string id_purchase_order = 2;
+  string id_stock = 3;
+  int64 quantity = 4;
+  double weight = 5;
+  erposfnb.common.MeasureType weight_unit = 6;
+  double dimension_x = 7;
+  double dimension_y = 8;
+  double dimension_z = 9;
+  erposfnb.common.LengthType dimension_unit = 10;
+  double price = 11;
+  erposfnb.common.Currency currency = 12;
+}
+
+// PurchaseOrder is one order placed with a supplier.
+message PurchaseOrder {
+  string id = 1;
+  string id_warehouse = 2;
+  string id_supplier = 3;
+  // status is a plain string, the warehouse DB enum is not yet a proto enum.
+  string status = 4;
+  google.protobuf.Timestamp order_date = 5;
+  google.protobuf.Timestamp expected_date = 6;
+  google.protobuf.Timestamp received_date = 7;
+  repeated PurchaseOrderLine lines = 8;
+}
+
+// GoodsReceiptLine is the received amount of one purchase order line.
+message GoodsReceiptLine {
+  string id_stock = 1;
+  int64 quantity = 2;
+  double weight = 3;
+  erposfnb.common.MeasureType weight_unit = 4;
+}
+
+// StockOpname is one counted stock row of a warehouse branch.
+message StockOpname {
+  string id = 1;
+  string id_warehouse = 2;
+  string id_branch = 3;
+  string id_stock = 4;
+  int64 quantity_system = 5;
+  int64 quantity_counted = 6;
+  // status is a plain string, the warehouse DB enum is not yet a proto enum.
+  string status = 7;
+  string note = 8;
+  string counted_by = 9;
+  google.protobuf.Timestamp counted_at = 10;
+  string approved_by = 11;
+  google.protobuf.Timestamp approved_at = 12;
+}
+
+// StockRequest is the warehouse side of a pos stock request.
+message StockRequest {
+  string id = 1;
+  string id_warehouse = 2;
+  string id_branch = 3;
+  string id_tenant = 4;
+  string id_tenant_branch = 5;
+  string id_stock_warehouse = 6;
+  string id_stock_pos = 7;
+  string name = 8;
+  int64 quantity = 9;
+  double weight = 10;
+  erposfnb.common.MeasureType weight_unit = 11;
+  double dimension_x = 12;
+  double dimension_y = 13;
+  double dimension_z = 14;
+  erposfnb.common.LengthType dimension_unit = 15;
+  string note = 16;
+  erposfnb.common.StockRequestStatus status = 17;
+  string idempotency_key = 18;
+  string request_by = 19;
+  google.protobuf.Timestamp request_at = 20;
+  string approved_by = 21;
+  google.protobuf.Timestamp approved_at = 22;
+  string shipped_by = 23;
+  google.protobuf.Timestamp shipped_at = 24;
+  string received_by = 25;
+  google.protobuf.Timestamp received_at = 26;
+}
+
+message ListLocationsRequest {
+  string id_warehouse = 1;
+}
+
+message ListLocationsResponse {
+  repeated Location locations = 1;
+}
+
+message CreateLocationRequest {
+  Location location = 1;
+}
+
+message CreateLocationResponse {
+  Location location = 1;
+}
+
+message ListSuppliersRequest {
+  string id_warehouse = 1;
+}
+
+message ListSuppliersResponse {
+  repeated Supplier suppliers = 1;
+}
+
+message CreateSupplierRequest {
+  Supplier supplier = 1;
+}
+
+message CreateSupplierResponse {
+  Supplier supplier = 1;
+}
+
+message CreatePurchaseOrderRequest {
+  PurchaseOrder purchase_order = 1;
+}
+
+message CreatePurchaseOrderResponse {
+  PurchaseOrder purchase_order = 1;
+}
+
+// CreateGoodsReceiptRequest books a received purchase order into stock.
+message CreateGoodsReceiptRequest {
+  string id_purchase_order = 1;
+  google.protobuf.Timestamp received_date = 2;
+  repeated GoodsReceiptLine lines = 3;
+  string idempotency_key = 4;
+}
+
+message CreateGoodsReceiptResponse {
+  PurchaseOrder purchase_order = 1;
+}
+
+message CreateTransferRequest {
+  string id_warehouse = 1;
+  string id_branch_from = 2;
+  string id_branch_to = 3;
+  string id_stock = 4;
+  int64 quantity = 5;
+  string note = 6;
+  string idempotency_key = 7;
+}
+
+message CreateTransferResponse {
+  bool transferred = 1;
+}
+
+message CreateAdjustmentRequest {
+  string id_warehouse = 1;
+  string id_branch = 2;
+  string id_stock = 3;
+  int64 quantity_delta = 4;
+  string note = 5;
+  string idempotency_key = 6;
+}
+
+message CreateAdjustmentResponse {
+  Stock stock = 1;
+}
+
+message CreateStockOpnameRequest {
+  StockOpname stock_opname = 1;
+}
+
+message CreateStockOpnameResponse {
+  StockOpname stock_opname = 1;
+}
+
+message ListStockOpnamesRequest {
+  string id_warehouse = 1;
+  string id_branch = 2;
+  // status is a plain string, the warehouse DB enum is not yet a proto enum.
+  string status = 3;
+}
+
+message ListStockOpnamesResponse {
+  repeated StockOpname stock_opnames = 1;
+}
+
+message GetStockOpnameRequest {
+  string id = 1;
+}
+
+message GetStockOpnameResponse {
+  StockOpname stock_opname = 1;
+}
+
+message ListStockRequestsRequest {
+  string id_warehouse = 1;
+  string id_branch = 2;
+  erposfnb.common.StockRequestStatus status = 3;
+}
+
+message ListStockRequestsResponse {
+  repeated StockRequest stock_requests = 1;
+}
+
+// RequestStock is called by pos. It creates the warehouse row as pending and
+// returns the warehouse id so pos can store it as id_stock_warehouse.
+message RequestStockRequest {
+  StockRequest stock_request = 1;
+}
+
+message RequestStockResponse {
+  StockRequest stock_request = 1;
+}
+
+message ApproveStockRequestRequest {
+  string id = 1;
+  string approved_by = 2;
+}
+
+message ApproveStockRequestResponse {
+  StockRequest stock_request = 1;
+}
+
+message RejectStockRequestRequest {
+  string id = 1;
+  string rejected_by = 2;
+  string reason = 3;
+}
+
+message RejectStockRequestResponse {
+  StockRequest stock_request = 1;
+}
+
+message ShipStockRequestRequest {
+  string id = 1;
+  string shipped_by = 2;
+}
+
+message ShipStockRequestResponse {
+  StockRequest stock_request = 1;
+}
+
+// StockRequestReceived is called by pos after it receives and books the stock.
+message StockRequestReceivedRequest {
+  string id = 1;
+}
+
+message StockRequestReceivedResponse {
+  StockRequest stock_request = 1;
+}
+
+// WarehouseService serves location, supplier, purchase order, stock, opname,
+// and stock request work. It is a private core service.
+service WarehouseService {
+  rpc ListLocations(ListLocationsRequest) returns (ListLocationsResponse);
+  rpc CreateLocation(CreateLocationRequest) returns (CreateLocationResponse);
+  rpc ListSuppliers(ListSuppliersRequest) returns (ListSuppliersResponse);
+  rpc CreateSupplier(CreateSupplierRequest) returns (CreateSupplierResponse);
+  rpc CreatePurchaseOrder(CreatePurchaseOrderRequest) returns (CreatePurchaseOrderResponse);
+  rpc CreateGoodsReceipt(CreateGoodsReceiptRequest) returns (CreateGoodsReceiptResponse);
+  rpc CreateTransfer(CreateTransferRequest) returns (CreateTransferResponse);
+  rpc CreateAdjustment(CreateAdjustmentRequest) returns (CreateAdjustmentResponse);
+  rpc CreateStockOpname(CreateStockOpnameRequest) returns (CreateStockOpnameResponse);
+  rpc ListStockOpnames(ListStockOpnamesRequest) returns (ListStockOpnamesResponse);
+  rpc GetStockOpname(GetStockOpnameRequest) returns (GetStockOpnameResponse);
+  rpc ListStockRequests(ListStockRequestsRequest) returns (ListStockRequestsResponse);
+  rpc RequestStock(RequestStockRequest) returns (RequestStockResponse);
+  rpc ApproveStockRequest(ApproveStockRequestRequest) returns (ApproveStockRequestResponse);
+  rpc RejectStockRequest(RejectStockRequestRequest) returns (RejectStockRequestResponse);
+  rpc ShipStockRequest(ShipStockRequestRequest) returns (ShipStockRequestResponse);
+  rpc StockRequestReceived(StockRequestReceivedRequest) returns (StockRequestReceivedResponse);
+}

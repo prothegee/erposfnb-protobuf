@@ -1,0 +1,204 @@
+syntax = "proto3";
+
+package erposfnb.tenant;
+
+import "common/common.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/prothegee/erposfnb-protobuf/tenant";
+
+// Tenant is a registered business that owns one or more branches.
+message Tenant {
+  string id = 1;
+  string id_ref = 2;
+  string id_owner = 3;
+  string name = 4;
+  string name_display = 5;
+  bool banned = 6;
+  string banned_reason = 7;
+  google.protobuf.Timestamp registered = 8;
+}
+
+// BranchInformation is the contact and picture row of one branch.
+message BranchInformation {
+  string id_branch = 1;
+  string contact_email = 2;
+  string contact_phone = 3;
+  double latitude = 4;
+  double longitude = 5;
+  erposfnb.common.Currency preferred_currency = 6;
+  string pub_path = 7;
+  string pub_pict = 8;
+}
+
+// Branch is one outlet that belongs to a tenant.
+message Branch {
+  string id = 1;
+  string id_ref = 2;
+  string id_tenant = 3;
+  string name = 4;
+  string name_display = 5;
+  bool banned = 6;
+  string banned_reason = 7;
+  BranchInformation information = 8;
+}
+
+// Member is one account that holds a role in a tenant branch.
+message Member {
+  string id = 1;
+  string id_tenant = 2;
+  string id_tenant_branch = 3;
+  string id_account_user = 4;
+  erposfnb.common.RoleAccess access = 5;
+  google.protobuf.Timestamp added_at = 6;
+}
+
+message CreateTenantRequest {
+  string id_owner = 1;
+  string name = 2;
+  string name_display = 3;
+}
+
+message CreateTenantResponse {
+  Tenant tenant = 1;
+}
+
+message ListTenantsRequest {
+  string id_owner = 1;
+  uint32 page = 2;
+  uint32 page_size = 3;
+}
+
+message ListTenantsResponse {
+  repeated Tenant tenants = 1;
+  uint64 total = 2;
+}
+
+message GetTenantRequest {
+  string id = 1;
+}
+
+message GetTenantResponse {
+  Tenant tenant = 1;
+}
+
+message UpdateTenantRequest {
+  string id = 1;
+  string name_display = 2;
+  bool banned = 3;
+  string banned_reason = 4;
+}
+
+message UpdateTenantResponse {
+  Tenant tenant = 1;
+}
+
+message CreateBranchRequest {
+  string id_tenant = 1;
+  string name = 2;
+  string name_display = 3;
+}
+
+message CreateBranchResponse {
+  Branch branch = 1;
+}
+
+message ListBranchesRequest {
+  string id_tenant = 1;
+}
+
+message ListBranchesResponse {
+  repeated Branch branches = 1;
+}
+
+message GetBranchRequest {
+  string id = 1;
+}
+
+message GetBranchResponse {
+  Branch branch = 1;
+}
+
+message UpdateBranchRequest {
+  string id = 1;
+  string name_display = 2;
+  bool banned = 3;
+  string banned_reason = 4;
+  BranchInformation information = 5;
+}
+
+message UpdateBranchResponse {
+  Branch branch = 1;
+}
+
+message ListMembersRequest {
+  string id_tenant_branch = 1;
+}
+
+message ListMembersResponse {
+  repeated Member members = 1;
+}
+
+message AddMemberRequest {
+  string id_tenant = 1;
+  string id_tenant_branch = 2;
+  string id_account_user = 3;
+  erposfnb.common.RoleAccess access = 4;
+}
+
+message AddMemberResponse {
+  Member member = 1;
+}
+
+message UpdateMemberRequest {
+  string id = 1;
+  erposfnb.common.RoleAccess access = 2;
+}
+
+message UpdateMemberResponse {
+  Member member = 1;
+}
+
+message RemoveMemberRequest {
+  string id = 1;
+}
+
+message RemoveMemberResponse {
+  bool removed = 1;
+}
+
+message SummarizeRequest {
+  string id_tenant = 1;
+}
+
+message SummarizeResponse {
+  string summary = 1;
+}
+
+// CheckBannedRequest carries the tenant id that account tests at sign in and refresh.
+message CheckBannedRequest {
+  string id_tenant = 1;
+}
+
+message CheckBannedResponse {
+  bool banned = 1;
+  string banned_reason = 2;
+}
+
+// TenantService serves tenant, branch, and member work for the internal callers.
+service TenantService {
+  rpc CreateTenant(CreateTenantRequest) returns (CreateTenantResponse);
+  rpc ListTenants(ListTenantsRequest) returns (ListTenantsResponse);
+  rpc GetTenant(GetTenantRequest) returns (GetTenantResponse);
+  rpc UpdateTenant(UpdateTenantRequest) returns (UpdateTenantResponse);
+  rpc CreateBranch(CreateBranchRequest) returns (CreateBranchResponse);
+  rpc ListBranches(ListBranchesRequest) returns (ListBranchesResponse);
+  rpc GetBranch(GetBranchRequest) returns (GetBranchResponse);
+  rpc UpdateBranch(UpdateBranchRequest) returns (UpdateBranchResponse);
+  rpc ListMembers(ListMembersRequest) returns (ListMembersResponse);
+  rpc AddMember(AddMemberRequest) returns (AddMemberResponse);
+  rpc UpdateMember(UpdateMemberRequest) returns (UpdateMemberResponse);
+  rpc RemoveMember(RemoveMemberRequest) returns (RemoveMemberResponse);
+  rpc Summarize(SummarizeRequest) returns (SummarizeResponse);
+  rpc CheckBanned(CheckBannedRequest) returns (CheckBannedResponse);
+}
