@@ -1315,6 +1315,97 @@ func (x *ListMembersResponse) GetMembers() []*Member {
 	return nil
 }
 
+// ListMembersByIdAccountRequest asks for every branch membership of one account.
+// Account calls it at sign in and at refresh to fill the tenant_id, branch_id,
+// and role_access claims of the access token.
+type ListMembersByIdAccountRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	IdAccountUser string                 `protobuf:"bytes,1,opt,name=id_account_user,json=idAccountUser,proto3" json:"id_account_user,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListMembersByIdAccountRequest) Reset() {
+	*x = ListMembersByIdAccountRequest{}
+	mi := &file_tenant_tenant_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListMembersByIdAccountRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListMembersByIdAccountRequest) ProtoMessage() {}
+
+func (x *ListMembersByIdAccountRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_tenant_tenant_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListMembersByIdAccountRequest.ProtoReflect.Descriptor instead.
+func (*ListMembersByIdAccountRequest) Descriptor() ([]byte, []int) {
+	return file_tenant_tenant_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *ListMembersByIdAccountRequest) GetIdAccountUser() string {
+	if x != nil {
+		return x.IdAccountUser
+	}
+	return ""
+}
+
+type ListMembersByIdAccountResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Members       []*Member              `protobuf:"bytes,1,rep,name=members,proto3" json:"members,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListMembersByIdAccountResponse) Reset() {
+	*x = ListMembersByIdAccountResponse{}
+	mi := &file_tenant_tenant_proto_msgTypes[23]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListMembersByIdAccountResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListMembersByIdAccountResponse) ProtoMessage() {}
+
+func (x *ListMembersByIdAccountResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_tenant_tenant_proto_msgTypes[23]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListMembersByIdAccountResponse.ProtoReflect.Descriptor instead.
+func (*ListMembersByIdAccountResponse) Descriptor() ([]byte, []int) {
+	return file_tenant_tenant_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *ListMembersByIdAccountResponse) GetMembers() []*Member {
+	if x != nil {
+		return x.Members
+	}
+	return nil
+}
+
 type AddMemberRequest struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	IdTenant       string                 `protobuf:"bytes,1,opt,name=id_tenant,json=idTenant,proto3" json:"id_tenant,omitempty"`
@@ -1327,7 +1418,7 @@ type AddMemberRequest struct {
 
 func (x *AddMemberRequest) Reset() {
 	*x = AddMemberRequest{}
-	mi := &file_tenant_tenant_proto_msgTypes[22]
+	mi := &file_tenant_tenant_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1339,7 +1430,7 @@ func (x *AddMemberRequest) String() string {
 func (*AddMemberRequest) ProtoMessage() {}
 
 func (x *AddMemberRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_tenant_tenant_proto_msgTypes[22]
+	mi := &file_tenant_tenant_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1352,7 +1443,7 @@ func (x *AddMemberRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddMemberRequest.ProtoReflect.Descriptor instead.
 func (*AddMemberRequest) Descriptor() ([]byte, []int) {
-	return file_tenant_tenant_proto_rawDescGZIP(), []int{22}
+	return file_tenant_tenant_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *AddMemberRequest) GetIdTenant() string {
@@ -1392,7 +1483,7 @@ type AddMemberResponse struct {
 
 func (x *AddMemberResponse) Reset() {
 	*x = AddMemberResponse{}
-	mi := &file_tenant_tenant_proto_msgTypes[23]
+	mi := &file_tenant_tenant_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1404,7 +1495,7 @@ func (x *AddMemberResponse) String() string {
 func (*AddMemberResponse) ProtoMessage() {}
 
 func (x *AddMemberResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_tenant_tenant_proto_msgTypes[23]
+	mi := &file_tenant_tenant_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1417,7 +1508,7 @@ func (x *AddMemberResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddMemberResponse.ProtoReflect.Descriptor instead.
 func (*AddMemberResponse) Descriptor() ([]byte, []int) {
-	return file_tenant_tenant_proto_rawDescGZIP(), []int{23}
+	return file_tenant_tenant_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *AddMemberResponse) GetMember() *Member {
@@ -1437,7 +1528,7 @@ type UpdateMemberRequest struct {
 
 func (x *UpdateMemberRequest) Reset() {
 	*x = UpdateMemberRequest{}
-	mi := &file_tenant_tenant_proto_msgTypes[24]
+	mi := &file_tenant_tenant_proto_msgTypes[26]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1449,7 +1540,7 @@ func (x *UpdateMemberRequest) String() string {
 func (*UpdateMemberRequest) ProtoMessage() {}
 
 func (x *UpdateMemberRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_tenant_tenant_proto_msgTypes[24]
+	mi := &file_tenant_tenant_proto_msgTypes[26]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1462,7 +1553,7 @@ func (x *UpdateMemberRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateMemberRequest.ProtoReflect.Descriptor instead.
 func (*UpdateMemberRequest) Descriptor() ([]byte, []int) {
-	return file_tenant_tenant_proto_rawDescGZIP(), []int{24}
+	return file_tenant_tenant_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *UpdateMemberRequest) GetId() string {
@@ -1488,7 +1579,7 @@ type UpdateMemberResponse struct {
 
 func (x *UpdateMemberResponse) Reset() {
 	*x = UpdateMemberResponse{}
-	mi := &file_tenant_tenant_proto_msgTypes[25]
+	mi := &file_tenant_tenant_proto_msgTypes[27]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1500,7 +1591,7 @@ func (x *UpdateMemberResponse) String() string {
 func (*UpdateMemberResponse) ProtoMessage() {}
 
 func (x *UpdateMemberResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_tenant_tenant_proto_msgTypes[25]
+	mi := &file_tenant_tenant_proto_msgTypes[27]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1513,7 +1604,7 @@ func (x *UpdateMemberResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateMemberResponse.ProtoReflect.Descriptor instead.
 func (*UpdateMemberResponse) Descriptor() ([]byte, []int) {
-	return file_tenant_tenant_proto_rawDescGZIP(), []int{25}
+	return file_tenant_tenant_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *UpdateMemberResponse) GetMember() *Member {
@@ -1532,7 +1623,7 @@ type RemoveMemberRequest struct {
 
 func (x *RemoveMemberRequest) Reset() {
 	*x = RemoveMemberRequest{}
-	mi := &file_tenant_tenant_proto_msgTypes[26]
+	mi := &file_tenant_tenant_proto_msgTypes[28]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1544,7 +1635,7 @@ func (x *RemoveMemberRequest) String() string {
 func (*RemoveMemberRequest) ProtoMessage() {}
 
 func (x *RemoveMemberRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_tenant_tenant_proto_msgTypes[26]
+	mi := &file_tenant_tenant_proto_msgTypes[28]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1557,7 +1648,7 @@ func (x *RemoveMemberRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RemoveMemberRequest.ProtoReflect.Descriptor instead.
 func (*RemoveMemberRequest) Descriptor() ([]byte, []int) {
-	return file_tenant_tenant_proto_rawDescGZIP(), []int{26}
+	return file_tenant_tenant_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *RemoveMemberRequest) GetId() string {
@@ -1576,7 +1667,7 @@ type RemoveMemberResponse struct {
 
 func (x *RemoveMemberResponse) Reset() {
 	*x = RemoveMemberResponse{}
-	mi := &file_tenant_tenant_proto_msgTypes[27]
+	mi := &file_tenant_tenant_proto_msgTypes[29]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1588,7 +1679,7 @@ func (x *RemoveMemberResponse) String() string {
 func (*RemoveMemberResponse) ProtoMessage() {}
 
 func (x *RemoveMemberResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_tenant_tenant_proto_msgTypes[27]
+	mi := &file_tenant_tenant_proto_msgTypes[29]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1601,7 +1692,7 @@ func (x *RemoveMemberResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RemoveMemberResponse.ProtoReflect.Descriptor instead.
 func (*RemoveMemberResponse) Descriptor() ([]byte, []int) {
-	return file_tenant_tenant_proto_rawDescGZIP(), []int{27}
+	return file_tenant_tenant_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *RemoveMemberResponse) GetRemoved() bool {
@@ -1620,7 +1711,7 @@ type SummarizeRequest struct {
 
 func (x *SummarizeRequest) Reset() {
 	*x = SummarizeRequest{}
-	mi := &file_tenant_tenant_proto_msgTypes[28]
+	mi := &file_tenant_tenant_proto_msgTypes[30]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1632,7 +1723,7 @@ func (x *SummarizeRequest) String() string {
 func (*SummarizeRequest) ProtoMessage() {}
 
 func (x *SummarizeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_tenant_tenant_proto_msgTypes[28]
+	mi := &file_tenant_tenant_proto_msgTypes[30]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1645,7 +1736,7 @@ func (x *SummarizeRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SummarizeRequest.ProtoReflect.Descriptor instead.
 func (*SummarizeRequest) Descriptor() ([]byte, []int) {
-	return file_tenant_tenant_proto_rawDescGZIP(), []int{28}
+	return file_tenant_tenant_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *SummarizeRequest) GetIdTenant() string {
@@ -1664,7 +1755,7 @@ type SummarizeResponse struct {
 
 func (x *SummarizeResponse) Reset() {
 	*x = SummarizeResponse{}
-	mi := &file_tenant_tenant_proto_msgTypes[29]
+	mi := &file_tenant_tenant_proto_msgTypes[31]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1676,7 +1767,7 @@ func (x *SummarizeResponse) String() string {
 func (*SummarizeResponse) ProtoMessage() {}
 
 func (x *SummarizeResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_tenant_tenant_proto_msgTypes[29]
+	mi := &file_tenant_tenant_proto_msgTypes[31]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1689,7 +1780,7 @@ func (x *SummarizeResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SummarizeResponse.ProtoReflect.Descriptor instead.
 func (*SummarizeResponse) Descriptor() ([]byte, []int) {
-	return file_tenant_tenant_proto_rawDescGZIP(), []int{29}
+	return file_tenant_tenant_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *SummarizeResponse) GetSummary() string {
@@ -1709,7 +1800,7 @@ type CheckBannedRequest struct {
 
 func (x *CheckBannedRequest) Reset() {
 	*x = CheckBannedRequest{}
-	mi := &file_tenant_tenant_proto_msgTypes[30]
+	mi := &file_tenant_tenant_proto_msgTypes[32]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1721,7 +1812,7 @@ func (x *CheckBannedRequest) String() string {
 func (*CheckBannedRequest) ProtoMessage() {}
 
 func (x *CheckBannedRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_tenant_tenant_proto_msgTypes[30]
+	mi := &file_tenant_tenant_proto_msgTypes[32]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1734,7 +1825,7 @@ func (x *CheckBannedRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CheckBannedRequest.ProtoReflect.Descriptor instead.
 func (*CheckBannedRequest) Descriptor() ([]byte, []int) {
-	return file_tenant_tenant_proto_rawDescGZIP(), []int{30}
+	return file_tenant_tenant_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *CheckBannedRequest) GetIdTenant() string {
@@ -1754,7 +1845,7 @@ type CheckBannedResponse struct {
 
 func (x *CheckBannedResponse) Reset() {
 	*x = CheckBannedResponse{}
-	mi := &file_tenant_tenant_proto_msgTypes[31]
+	mi := &file_tenant_tenant_proto_msgTypes[33]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1766,7 +1857,7 @@ func (x *CheckBannedResponse) String() string {
 func (*CheckBannedResponse) ProtoMessage() {}
 
 func (x *CheckBannedResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_tenant_tenant_proto_msgTypes[31]
+	mi := &file_tenant_tenant_proto_msgTypes[33]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1779,7 +1870,7 @@ func (x *CheckBannedResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CheckBannedResponse.ProtoReflect.Descriptor instead.
 func (*CheckBannedResponse) Descriptor() ([]byte, []int) {
-	return file_tenant_tenant_proto_rawDescGZIP(), []int{31}
+	return file_tenant_tenant_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *CheckBannedResponse) GetBanned() bool {
@@ -1886,6 +1977,10 @@ const file_tenant_tenant_proto_rawDesc = "" +
 	"\x12ListMembersRequest\x12(\n" +
 	"\x10id_tenant_branch\x18\x01 \x01(\tR\x0eidTenantBranch\"H\n" +
 	"\x13ListMembersResponse\x121\n" +
+	"\amembers\x18\x01 \x03(\v2\x17.erposfnb.tenant.MemberR\amembers\"G\n" +
+	"\x1dListMembersByIdAccountRequest\x12&\n" +
+	"\x0fid_account_user\x18\x01 \x01(\tR\ridAccountUser\"S\n" +
+	"\x1eListMembersByIdAccountResponse\x121\n" +
 	"\amembers\x18\x01 \x03(\v2\x17.erposfnb.tenant.MemberR\amembers\"\xb6\x01\n" +
 	"\x10AddMemberRequest\x12\x1b\n" +
 	"\tid_tenant\x18\x01 \x01(\tR\bidTenant\x12(\n" +
@@ -1911,7 +2006,8 @@ const file_tenant_tenant_proto_rawDesc = "" +
 	"\tid_tenant\x18\x01 \x01(\tR\bidTenant\"R\n" +
 	"\x13CheckBannedResponse\x12\x16\n" +
 	"\x06banned\x18\x01 \x01(\bR\x06banned\x12#\n" +
-	"\rbanned_reason\x18\x02 \x01(\tR\fbannedReason2\xf8\t\n" +
+	"\rbanned_reason\x18\x02 \x01(\tR\fbannedReason2\xf3\n" +
+	"\n" +
 	"\rTenantService\x12[\n" +
 	"\fCreateTenant\x12$.erposfnb.tenant.CreateTenantRequest\x1a%.erposfnb.tenant.CreateTenantResponse\x12X\n" +
 	"\vListTenants\x12#.erposfnb.tenant.ListTenantsRequest\x1a$.erposfnb.tenant.ListTenantsResponse\x12R\n" +
@@ -1921,7 +2017,8 @@ const file_tenant_tenant_proto_rawDesc = "" +
 	"\fListBranches\x12$.erposfnb.tenant.ListBranchesRequest\x1a%.erposfnb.tenant.ListBranchesResponse\x12R\n" +
 	"\tGetBranch\x12!.erposfnb.tenant.GetBranchRequest\x1a\".erposfnb.tenant.GetBranchResponse\x12[\n" +
 	"\fUpdateBranch\x12$.erposfnb.tenant.UpdateBranchRequest\x1a%.erposfnb.tenant.UpdateBranchResponse\x12X\n" +
-	"\vListMembers\x12#.erposfnb.tenant.ListMembersRequest\x1a$.erposfnb.tenant.ListMembersResponse\x12R\n" +
+	"\vListMembers\x12#.erposfnb.tenant.ListMembersRequest\x1a$.erposfnb.tenant.ListMembersResponse\x12y\n" +
+	"\x16ListMembersByIdAccount\x12..erposfnb.tenant.ListMembersByIdAccountRequest\x1a/.erposfnb.tenant.ListMembersByIdAccountResponse\x12R\n" +
 	"\tAddMember\x12!.erposfnb.tenant.AddMemberRequest\x1a\".erposfnb.tenant.AddMemberResponse\x12[\n" +
 	"\fUpdateMember\x12$.erposfnb.tenant.UpdateMemberRequest\x1a%.erposfnb.tenant.UpdateMemberResponse\x12[\n" +
 	"\fRemoveMember\x12$.erposfnb.tenant.RemoveMemberRequest\x1a%.erposfnb.tenant.RemoveMemberResponse\x12R\n" +
@@ -1940,50 +2037,52 @@ func file_tenant_tenant_proto_rawDescGZIP() []byte {
 	return file_tenant_tenant_proto_rawDescData
 }
 
-var file_tenant_tenant_proto_msgTypes = make([]protoimpl.MessageInfo, 32)
+var file_tenant_tenant_proto_msgTypes = make([]protoimpl.MessageInfo, 34)
 var file_tenant_tenant_proto_goTypes = []any{
-	(*Tenant)(nil),                // 0: erposfnb.tenant.Tenant
-	(*BranchInformation)(nil),     // 1: erposfnb.tenant.BranchInformation
-	(*Branch)(nil),                // 2: erposfnb.tenant.Branch
-	(*Member)(nil),                // 3: erposfnb.tenant.Member
-	(*CreateTenantRequest)(nil),   // 4: erposfnb.tenant.CreateTenantRequest
-	(*CreateTenantResponse)(nil),  // 5: erposfnb.tenant.CreateTenantResponse
-	(*ListTenantsRequest)(nil),    // 6: erposfnb.tenant.ListTenantsRequest
-	(*ListTenantsResponse)(nil),   // 7: erposfnb.tenant.ListTenantsResponse
-	(*GetTenantRequest)(nil),      // 8: erposfnb.tenant.GetTenantRequest
-	(*GetTenantResponse)(nil),     // 9: erposfnb.tenant.GetTenantResponse
-	(*UpdateTenantRequest)(nil),   // 10: erposfnb.tenant.UpdateTenantRequest
-	(*UpdateTenantResponse)(nil),  // 11: erposfnb.tenant.UpdateTenantResponse
-	(*CreateBranchRequest)(nil),   // 12: erposfnb.tenant.CreateBranchRequest
-	(*CreateBranchResponse)(nil),  // 13: erposfnb.tenant.CreateBranchResponse
-	(*ListBranchesRequest)(nil),   // 14: erposfnb.tenant.ListBranchesRequest
-	(*ListBranchesResponse)(nil),  // 15: erposfnb.tenant.ListBranchesResponse
-	(*GetBranchRequest)(nil),      // 16: erposfnb.tenant.GetBranchRequest
-	(*GetBranchResponse)(nil),     // 17: erposfnb.tenant.GetBranchResponse
-	(*UpdateBranchRequest)(nil),   // 18: erposfnb.tenant.UpdateBranchRequest
-	(*UpdateBranchResponse)(nil),  // 19: erposfnb.tenant.UpdateBranchResponse
-	(*ListMembersRequest)(nil),    // 20: erposfnb.tenant.ListMembersRequest
-	(*ListMembersResponse)(nil),   // 21: erposfnb.tenant.ListMembersResponse
-	(*AddMemberRequest)(nil),      // 22: erposfnb.tenant.AddMemberRequest
-	(*AddMemberResponse)(nil),     // 23: erposfnb.tenant.AddMemberResponse
-	(*UpdateMemberRequest)(nil),   // 24: erposfnb.tenant.UpdateMemberRequest
-	(*UpdateMemberResponse)(nil),  // 25: erposfnb.tenant.UpdateMemberResponse
-	(*RemoveMemberRequest)(nil),   // 26: erposfnb.tenant.RemoveMemberRequest
-	(*RemoveMemberResponse)(nil),  // 27: erposfnb.tenant.RemoveMemberResponse
-	(*SummarizeRequest)(nil),      // 28: erposfnb.tenant.SummarizeRequest
-	(*SummarizeResponse)(nil),     // 29: erposfnb.tenant.SummarizeResponse
-	(*CheckBannedRequest)(nil),    // 30: erposfnb.tenant.CheckBannedRequest
-	(*CheckBannedResponse)(nil),   // 31: erposfnb.tenant.CheckBannedResponse
-	(*timestamppb.Timestamp)(nil), // 32: google.protobuf.Timestamp
-	(common.Currency)(0),          // 33: erposfnb.common.Currency
-	(common.RoleAccess)(0),        // 34: erposfnb.common.RoleAccess
+	(*Tenant)(nil),                         // 0: erposfnb.tenant.Tenant
+	(*BranchInformation)(nil),              // 1: erposfnb.tenant.BranchInformation
+	(*Branch)(nil),                         // 2: erposfnb.tenant.Branch
+	(*Member)(nil),                         // 3: erposfnb.tenant.Member
+	(*CreateTenantRequest)(nil),            // 4: erposfnb.tenant.CreateTenantRequest
+	(*CreateTenantResponse)(nil),           // 5: erposfnb.tenant.CreateTenantResponse
+	(*ListTenantsRequest)(nil),             // 6: erposfnb.tenant.ListTenantsRequest
+	(*ListTenantsResponse)(nil),            // 7: erposfnb.tenant.ListTenantsResponse
+	(*GetTenantRequest)(nil),               // 8: erposfnb.tenant.GetTenantRequest
+	(*GetTenantResponse)(nil),              // 9: erposfnb.tenant.GetTenantResponse
+	(*UpdateTenantRequest)(nil),            // 10: erposfnb.tenant.UpdateTenantRequest
+	(*UpdateTenantResponse)(nil),           // 11: erposfnb.tenant.UpdateTenantResponse
+	(*CreateBranchRequest)(nil),            // 12: erposfnb.tenant.CreateBranchRequest
+	(*CreateBranchResponse)(nil),           // 13: erposfnb.tenant.CreateBranchResponse
+	(*ListBranchesRequest)(nil),            // 14: erposfnb.tenant.ListBranchesRequest
+	(*ListBranchesResponse)(nil),           // 15: erposfnb.tenant.ListBranchesResponse
+	(*GetBranchRequest)(nil),               // 16: erposfnb.tenant.GetBranchRequest
+	(*GetBranchResponse)(nil),              // 17: erposfnb.tenant.GetBranchResponse
+	(*UpdateBranchRequest)(nil),            // 18: erposfnb.tenant.UpdateBranchRequest
+	(*UpdateBranchResponse)(nil),           // 19: erposfnb.tenant.UpdateBranchResponse
+	(*ListMembersRequest)(nil),             // 20: erposfnb.tenant.ListMembersRequest
+	(*ListMembersResponse)(nil),            // 21: erposfnb.tenant.ListMembersResponse
+	(*ListMembersByIdAccountRequest)(nil),  // 22: erposfnb.tenant.ListMembersByIdAccountRequest
+	(*ListMembersByIdAccountResponse)(nil), // 23: erposfnb.tenant.ListMembersByIdAccountResponse
+	(*AddMemberRequest)(nil),               // 24: erposfnb.tenant.AddMemberRequest
+	(*AddMemberResponse)(nil),              // 25: erposfnb.tenant.AddMemberResponse
+	(*UpdateMemberRequest)(nil),            // 26: erposfnb.tenant.UpdateMemberRequest
+	(*UpdateMemberResponse)(nil),           // 27: erposfnb.tenant.UpdateMemberResponse
+	(*RemoveMemberRequest)(nil),            // 28: erposfnb.tenant.RemoveMemberRequest
+	(*RemoveMemberResponse)(nil),           // 29: erposfnb.tenant.RemoveMemberResponse
+	(*SummarizeRequest)(nil),               // 30: erposfnb.tenant.SummarizeRequest
+	(*SummarizeResponse)(nil),              // 31: erposfnb.tenant.SummarizeResponse
+	(*CheckBannedRequest)(nil),             // 32: erposfnb.tenant.CheckBannedRequest
+	(*CheckBannedResponse)(nil),            // 33: erposfnb.tenant.CheckBannedResponse
+	(*timestamppb.Timestamp)(nil),          // 34: google.protobuf.Timestamp
+	(common.Currency)(0),                   // 35: erposfnb.common.Currency
+	(common.RoleAccess)(0),                 // 36: erposfnb.common.RoleAccess
 }
 var file_tenant_tenant_proto_depIdxs = []int32{
-	32, // 0: erposfnb.tenant.Tenant.registered:type_name -> google.protobuf.Timestamp
-	33, // 1: erposfnb.tenant.BranchInformation.preferred_currency:type_name -> erposfnb.common.Currency
+	34, // 0: erposfnb.tenant.Tenant.registered:type_name -> google.protobuf.Timestamp
+	35, // 1: erposfnb.tenant.BranchInformation.preferred_currency:type_name -> erposfnb.common.Currency
 	1,  // 2: erposfnb.tenant.Branch.information:type_name -> erposfnb.tenant.BranchInformation
-	34, // 3: erposfnb.tenant.Member.access:type_name -> erposfnb.common.RoleAccess
-	32, // 4: erposfnb.tenant.Member.added_at:type_name -> google.protobuf.Timestamp
+	36, // 3: erposfnb.tenant.Member.access:type_name -> erposfnb.common.RoleAccess
+	34, // 4: erposfnb.tenant.Member.added_at:type_name -> google.protobuf.Timestamp
 	0,  // 5: erposfnb.tenant.CreateTenantResponse.tenant:type_name -> erposfnb.tenant.Tenant
 	0,  // 6: erposfnb.tenant.ListTenantsResponse.tenants:type_name -> erposfnb.tenant.Tenant
 	0,  // 7: erposfnb.tenant.GetTenantResponse.tenant:type_name -> erposfnb.tenant.Tenant
@@ -1994,43 +2093,46 @@ var file_tenant_tenant_proto_depIdxs = []int32{
 	1,  // 12: erposfnb.tenant.UpdateBranchRequest.information:type_name -> erposfnb.tenant.BranchInformation
 	2,  // 13: erposfnb.tenant.UpdateBranchResponse.branch:type_name -> erposfnb.tenant.Branch
 	3,  // 14: erposfnb.tenant.ListMembersResponse.members:type_name -> erposfnb.tenant.Member
-	34, // 15: erposfnb.tenant.AddMemberRequest.access:type_name -> erposfnb.common.RoleAccess
-	3,  // 16: erposfnb.tenant.AddMemberResponse.member:type_name -> erposfnb.tenant.Member
-	34, // 17: erposfnb.tenant.UpdateMemberRequest.access:type_name -> erposfnb.common.RoleAccess
-	3,  // 18: erposfnb.tenant.UpdateMemberResponse.member:type_name -> erposfnb.tenant.Member
-	4,  // 19: erposfnb.tenant.TenantService.CreateTenant:input_type -> erposfnb.tenant.CreateTenantRequest
-	6,  // 20: erposfnb.tenant.TenantService.ListTenants:input_type -> erposfnb.tenant.ListTenantsRequest
-	8,  // 21: erposfnb.tenant.TenantService.GetTenant:input_type -> erposfnb.tenant.GetTenantRequest
-	10, // 22: erposfnb.tenant.TenantService.UpdateTenant:input_type -> erposfnb.tenant.UpdateTenantRequest
-	12, // 23: erposfnb.tenant.TenantService.CreateBranch:input_type -> erposfnb.tenant.CreateBranchRequest
-	14, // 24: erposfnb.tenant.TenantService.ListBranches:input_type -> erposfnb.tenant.ListBranchesRequest
-	16, // 25: erposfnb.tenant.TenantService.GetBranch:input_type -> erposfnb.tenant.GetBranchRequest
-	18, // 26: erposfnb.tenant.TenantService.UpdateBranch:input_type -> erposfnb.tenant.UpdateBranchRequest
-	20, // 27: erposfnb.tenant.TenantService.ListMembers:input_type -> erposfnb.tenant.ListMembersRequest
-	22, // 28: erposfnb.tenant.TenantService.AddMember:input_type -> erposfnb.tenant.AddMemberRequest
-	24, // 29: erposfnb.tenant.TenantService.UpdateMember:input_type -> erposfnb.tenant.UpdateMemberRequest
-	26, // 30: erposfnb.tenant.TenantService.RemoveMember:input_type -> erposfnb.tenant.RemoveMemberRequest
-	28, // 31: erposfnb.tenant.TenantService.Summarize:input_type -> erposfnb.tenant.SummarizeRequest
-	30, // 32: erposfnb.tenant.TenantService.CheckBanned:input_type -> erposfnb.tenant.CheckBannedRequest
-	5,  // 33: erposfnb.tenant.TenantService.CreateTenant:output_type -> erposfnb.tenant.CreateTenantResponse
-	7,  // 34: erposfnb.tenant.TenantService.ListTenants:output_type -> erposfnb.tenant.ListTenantsResponse
-	9,  // 35: erposfnb.tenant.TenantService.GetTenant:output_type -> erposfnb.tenant.GetTenantResponse
-	11, // 36: erposfnb.tenant.TenantService.UpdateTenant:output_type -> erposfnb.tenant.UpdateTenantResponse
-	13, // 37: erposfnb.tenant.TenantService.CreateBranch:output_type -> erposfnb.tenant.CreateBranchResponse
-	15, // 38: erposfnb.tenant.TenantService.ListBranches:output_type -> erposfnb.tenant.ListBranchesResponse
-	17, // 39: erposfnb.tenant.TenantService.GetBranch:output_type -> erposfnb.tenant.GetBranchResponse
-	19, // 40: erposfnb.tenant.TenantService.UpdateBranch:output_type -> erposfnb.tenant.UpdateBranchResponse
-	21, // 41: erposfnb.tenant.TenantService.ListMembers:output_type -> erposfnb.tenant.ListMembersResponse
-	23, // 42: erposfnb.tenant.TenantService.AddMember:output_type -> erposfnb.tenant.AddMemberResponse
-	25, // 43: erposfnb.tenant.TenantService.UpdateMember:output_type -> erposfnb.tenant.UpdateMemberResponse
-	27, // 44: erposfnb.tenant.TenantService.RemoveMember:output_type -> erposfnb.tenant.RemoveMemberResponse
-	29, // 45: erposfnb.tenant.TenantService.Summarize:output_type -> erposfnb.tenant.SummarizeResponse
-	31, // 46: erposfnb.tenant.TenantService.CheckBanned:output_type -> erposfnb.tenant.CheckBannedResponse
-	33, // [33:47] is the sub-list for method output_type
-	19, // [19:33] is the sub-list for method input_type
-	19, // [19:19] is the sub-list for extension type_name
-	19, // [19:19] is the sub-list for extension extendee
-	0,  // [0:19] is the sub-list for field type_name
+	3,  // 15: erposfnb.tenant.ListMembersByIdAccountResponse.members:type_name -> erposfnb.tenant.Member
+	36, // 16: erposfnb.tenant.AddMemberRequest.access:type_name -> erposfnb.common.RoleAccess
+	3,  // 17: erposfnb.tenant.AddMemberResponse.member:type_name -> erposfnb.tenant.Member
+	36, // 18: erposfnb.tenant.UpdateMemberRequest.access:type_name -> erposfnb.common.RoleAccess
+	3,  // 19: erposfnb.tenant.UpdateMemberResponse.member:type_name -> erposfnb.tenant.Member
+	4,  // 20: erposfnb.tenant.TenantService.CreateTenant:input_type -> erposfnb.tenant.CreateTenantRequest
+	6,  // 21: erposfnb.tenant.TenantService.ListTenants:input_type -> erposfnb.tenant.ListTenantsRequest
+	8,  // 22: erposfnb.tenant.TenantService.GetTenant:input_type -> erposfnb.tenant.GetTenantRequest
+	10, // 23: erposfnb.tenant.TenantService.UpdateTenant:input_type -> erposfnb.tenant.UpdateTenantRequest
+	12, // 24: erposfnb.tenant.TenantService.CreateBranch:input_type -> erposfnb.tenant.CreateBranchRequest
+	14, // 25: erposfnb.tenant.TenantService.ListBranches:input_type -> erposfnb.tenant.ListBranchesRequest
+	16, // 26: erposfnb.tenant.TenantService.GetBranch:input_type -> erposfnb.tenant.GetBranchRequest
+	18, // 27: erposfnb.tenant.TenantService.UpdateBranch:input_type -> erposfnb.tenant.UpdateBranchRequest
+	20, // 28: erposfnb.tenant.TenantService.ListMembers:input_type -> erposfnb.tenant.ListMembersRequest
+	22, // 29: erposfnb.tenant.TenantService.ListMembersByIdAccount:input_type -> erposfnb.tenant.ListMembersByIdAccountRequest
+	24, // 30: erposfnb.tenant.TenantService.AddMember:input_type -> erposfnb.tenant.AddMemberRequest
+	26, // 31: erposfnb.tenant.TenantService.UpdateMember:input_type -> erposfnb.tenant.UpdateMemberRequest
+	28, // 32: erposfnb.tenant.TenantService.RemoveMember:input_type -> erposfnb.tenant.RemoveMemberRequest
+	30, // 33: erposfnb.tenant.TenantService.Summarize:input_type -> erposfnb.tenant.SummarizeRequest
+	32, // 34: erposfnb.tenant.TenantService.CheckBanned:input_type -> erposfnb.tenant.CheckBannedRequest
+	5,  // 35: erposfnb.tenant.TenantService.CreateTenant:output_type -> erposfnb.tenant.CreateTenantResponse
+	7,  // 36: erposfnb.tenant.TenantService.ListTenants:output_type -> erposfnb.tenant.ListTenantsResponse
+	9,  // 37: erposfnb.tenant.TenantService.GetTenant:output_type -> erposfnb.tenant.GetTenantResponse
+	11, // 38: erposfnb.tenant.TenantService.UpdateTenant:output_type -> erposfnb.tenant.UpdateTenantResponse
+	13, // 39: erposfnb.tenant.TenantService.CreateBranch:output_type -> erposfnb.tenant.CreateBranchResponse
+	15, // 40: erposfnb.tenant.TenantService.ListBranches:output_type -> erposfnb.tenant.ListBranchesResponse
+	17, // 41: erposfnb.tenant.TenantService.GetBranch:output_type -> erposfnb.tenant.GetBranchResponse
+	19, // 42: erposfnb.tenant.TenantService.UpdateBranch:output_type -> erposfnb.tenant.UpdateBranchResponse
+	21, // 43: erposfnb.tenant.TenantService.ListMembers:output_type -> erposfnb.tenant.ListMembersResponse
+	23, // 44: erposfnb.tenant.TenantService.ListMembersByIdAccount:output_type -> erposfnb.tenant.ListMembersByIdAccountResponse
+	25, // 45: erposfnb.tenant.TenantService.AddMember:output_type -> erposfnb.tenant.AddMemberResponse
+	27, // 46: erposfnb.tenant.TenantService.UpdateMember:output_type -> erposfnb.tenant.UpdateMemberResponse
+	29, // 47: erposfnb.tenant.TenantService.RemoveMember:output_type -> erposfnb.tenant.RemoveMemberResponse
+	31, // 48: erposfnb.tenant.TenantService.Summarize:output_type -> erposfnb.tenant.SummarizeResponse
+	33, // 49: erposfnb.tenant.TenantService.CheckBanned:output_type -> erposfnb.tenant.CheckBannedResponse
+	35, // [35:50] is the sub-list for method output_type
+	20, // [20:35] is the sub-list for method input_type
+	20, // [20:20] is the sub-list for extension type_name
+	20, // [20:20] is the sub-list for extension extendee
+	0,  // [0:20] is the sub-list for field type_name
 }
 
 func init() { file_tenant_tenant_proto_init() }
@@ -2044,7 +2146,7 @@ func file_tenant_tenant_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_tenant_tenant_proto_rawDesc), len(file_tenant_tenant_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   32,
+			NumMessages:   34,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
