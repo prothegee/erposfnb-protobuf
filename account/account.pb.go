@@ -296,10 +296,14 @@ func (x *SignUpResponse) GetAccount() *Account {
 }
 
 // SignInRequest accepts either an email or a username in identifier.
+// tenant_id and branch_id select the active membership when the account holds
+// more than one. Both may stay empty when the account holds exactly one.
 type SignInRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Identifier    string                 `protobuf:"bytes,1,opt,name=identifier,proto3" json:"identifier,omitempty"`
 	Password      string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	TenantId      string                 `protobuf:"bytes,3,opt,name=tenant_id,json=tenantId,proto3" json:"tenant_id,omitempty"`
+	BranchId      string                 `protobuf:"bytes,4,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -344,6 +348,20 @@ func (x *SignInRequest) GetIdentifier() string {
 func (x *SignInRequest) GetPassword() string {
 	if x != nil {
 		return x.Password
+	}
+	return ""
+}
+
+func (x *SignInRequest) GetTenantId() string {
+	if x != nil {
+		return x.TenantId
+	}
+	return ""
+}
+
+func (x *SignInRequest) GetBranchId() string {
+	if x != nil {
+		return x.BranchId
 	}
 	return ""
 }
@@ -504,9 +522,13 @@ func (x *SignOutResponse) GetRevoked() bool {
 	return false
 }
 
+// RefreshRequest rotates the opaque refresh token and issues a new access
+// token. The optional tenant_id and branch_id switch the active membership.
 type RefreshRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	RefreshToken  string                 `protobuf:"bytes,1,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
+	TenantId      string                 `protobuf:"bytes,2,opt,name=tenant_id,json=tenantId,proto3" json:"tenant_id,omitempty"`
+	BranchId      string                 `protobuf:"bytes,3,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -544,6 +566,20 @@ func (*RefreshRequest) Descriptor() ([]byte, []int) {
 func (x *RefreshRequest) GetRefreshToken() string {
 	if x != nil {
 		return x.RefreshToken
+	}
+	return ""
+}
+
+func (x *RefreshRequest) GetTenantId() string {
+	if x != nil {
+		return x.TenantId
+	}
+	return ""
+}
+
+func (x *RefreshRequest) GetBranchId() string {
+	if x != nil {
+		return x.BranchId
 	}
 	return ""
 }
@@ -1171,12 +1207,14 @@ const file_account_account_proto_rawDesc = "" +
 	"\busername\x18\x02 \x01(\tR\busername\x12\x1a\n" +
 	"\bpassword\x18\x03 \x01(\tR\bpassword\"E\n" +
 	"\x0eSignUpResponse\x123\n" +
-	"\aaccount\x18\x01 \x01(\v2\x19.erposfnb.account.AccountR\aaccount\"K\n" +
+	"\aaccount\x18\x01 \x01(\v2\x19.erposfnb.account.AccountR\aaccount\"\x85\x01\n" +
 	"\rSignInRequest\x12\x1e\n" +
 	"\n" +
 	"identifier\x18\x01 \x01(\tR\n" +
 	"identifier\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\"w\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\x12\x1b\n" +
+	"\ttenant_id\x18\x03 \x01(\tR\btenantId\x12\x1b\n" +
+	"\tbranch_id\x18\x04 \x01(\tR\bbranchId\"w\n" +
 	"\x0eSignInResponse\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
 	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\x12\x1d\n" +
@@ -1186,9 +1224,11 @@ const file_account_account_proto_rawDesc = "" +
 	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\x12\x10\n" +
 	"\x03jti\x18\x02 \x01(\tR\x03jti\"+\n" +
 	"\x0fSignOutResponse\x12\x18\n" +
-	"\arevoked\x18\x01 \x01(\bR\arevoked\"5\n" +
+	"\arevoked\x18\x01 \x01(\bR\arevoked\"o\n" +
 	"\x0eRefreshRequest\x12#\n" +
-	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\"x\n" +
+	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\x12\x1b\n" +
+	"\ttenant_id\x18\x02 \x01(\tR\btenantId\x12\x1b\n" +
+	"\tbranch_id\x18\x03 \x01(\tR\bbranchId\"x\n" +
 	"\x0fRefreshResponse\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
 	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\x12\x1d\n" +

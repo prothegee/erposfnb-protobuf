@@ -19,20 +19,21 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	TenantService_CreateTenant_FullMethodName = "/erposfnb.tenant.TenantService/CreateTenant"
-	TenantService_ListTenants_FullMethodName  = "/erposfnb.tenant.TenantService/ListTenants"
-	TenantService_GetTenant_FullMethodName    = "/erposfnb.tenant.TenantService/GetTenant"
-	TenantService_UpdateTenant_FullMethodName = "/erposfnb.tenant.TenantService/UpdateTenant"
-	TenantService_CreateBranch_FullMethodName = "/erposfnb.tenant.TenantService/CreateBranch"
-	TenantService_ListBranches_FullMethodName = "/erposfnb.tenant.TenantService/ListBranches"
-	TenantService_GetBranch_FullMethodName    = "/erposfnb.tenant.TenantService/GetBranch"
-	TenantService_UpdateBranch_FullMethodName = "/erposfnb.tenant.TenantService/UpdateBranch"
-	TenantService_ListMembers_FullMethodName  = "/erposfnb.tenant.TenantService/ListMembers"
-	TenantService_AddMember_FullMethodName    = "/erposfnb.tenant.TenantService/AddMember"
-	TenantService_UpdateMember_FullMethodName = "/erposfnb.tenant.TenantService/UpdateMember"
-	TenantService_RemoveMember_FullMethodName = "/erposfnb.tenant.TenantService/RemoveMember"
-	TenantService_Summarize_FullMethodName    = "/erposfnb.tenant.TenantService/Summarize"
-	TenantService_CheckBanned_FullMethodName  = "/erposfnb.tenant.TenantService/CheckBanned"
+	TenantService_CreateTenant_FullMethodName           = "/erposfnb.tenant.TenantService/CreateTenant"
+	TenantService_ListTenants_FullMethodName            = "/erposfnb.tenant.TenantService/ListTenants"
+	TenantService_GetTenant_FullMethodName              = "/erposfnb.tenant.TenantService/GetTenant"
+	TenantService_UpdateTenant_FullMethodName           = "/erposfnb.tenant.TenantService/UpdateTenant"
+	TenantService_CreateBranch_FullMethodName           = "/erposfnb.tenant.TenantService/CreateBranch"
+	TenantService_ListBranches_FullMethodName           = "/erposfnb.tenant.TenantService/ListBranches"
+	TenantService_GetBranch_FullMethodName              = "/erposfnb.tenant.TenantService/GetBranch"
+	TenantService_UpdateBranch_FullMethodName           = "/erposfnb.tenant.TenantService/UpdateBranch"
+	TenantService_ListMembers_FullMethodName            = "/erposfnb.tenant.TenantService/ListMembers"
+	TenantService_ListMembersByIdAccount_FullMethodName = "/erposfnb.tenant.TenantService/ListMembersByIdAccount"
+	TenantService_AddMember_FullMethodName              = "/erposfnb.tenant.TenantService/AddMember"
+	TenantService_UpdateMember_FullMethodName           = "/erposfnb.tenant.TenantService/UpdateMember"
+	TenantService_RemoveMember_FullMethodName           = "/erposfnb.tenant.TenantService/RemoveMember"
+	TenantService_Summarize_FullMethodName              = "/erposfnb.tenant.TenantService/Summarize"
+	TenantService_CheckBanned_FullMethodName            = "/erposfnb.tenant.TenantService/CheckBanned"
 )
 
 // TenantServiceClient is the client API for TenantService service.
@@ -50,6 +51,7 @@ type TenantServiceClient interface {
 	GetBranch(ctx context.Context, in *GetBranchRequest, opts ...grpc.CallOption) (*GetBranchResponse, error)
 	UpdateBranch(ctx context.Context, in *UpdateBranchRequest, opts ...grpc.CallOption) (*UpdateBranchResponse, error)
 	ListMembers(ctx context.Context, in *ListMembersRequest, opts ...grpc.CallOption) (*ListMembersResponse, error)
+	ListMembersByIdAccount(ctx context.Context, in *ListMembersByIdAccountRequest, opts ...grpc.CallOption) (*ListMembersByIdAccountResponse, error)
 	AddMember(ctx context.Context, in *AddMemberRequest, opts ...grpc.CallOption) (*AddMemberResponse, error)
 	UpdateMember(ctx context.Context, in *UpdateMemberRequest, opts ...grpc.CallOption) (*UpdateMemberResponse, error)
 	RemoveMember(ctx context.Context, in *RemoveMemberRequest, opts ...grpc.CallOption) (*RemoveMemberResponse, error)
@@ -155,6 +157,16 @@ func (c *tenantServiceClient) ListMembers(ctx context.Context, in *ListMembersRe
 	return out, nil
 }
 
+func (c *tenantServiceClient) ListMembersByIdAccount(ctx context.Context, in *ListMembersByIdAccountRequest, opts ...grpc.CallOption) (*ListMembersByIdAccountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListMembersByIdAccountResponse)
+	err := c.cc.Invoke(ctx, TenantService_ListMembersByIdAccount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *tenantServiceClient) AddMember(ctx context.Context, in *AddMemberRequest, opts ...grpc.CallOption) (*AddMemberResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(AddMemberResponse)
@@ -220,6 +232,7 @@ type TenantServiceServer interface {
 	GetBranch(context.Context, *GetBranchRequest) (*GetBranchResponse, error)
 	UpdateBranch(context.Context, *UpdateBranchRequest) (*UpdateBranchResponse, error)
 	ListMembers(context.Context, *ListMembersRequest) (*ListMembersResponse, error)
+	ListMembersByIdAccount(context.Context, *ListMembersByIdAccountRequest) (*ListMembersByIdAccountResponse, error)
 	AddMember(context.Context, *AddMemberRequest) (*AddMemberResponse, error)
 	UpdateMember(context.Context, *UpdateMemberRequest) (*UpdateMemberResponse, error)
 	RemoveMember(context.Context, *RemoveMemberRequest) (*RemoveMemberResponse, error)
@@ -261,6 +274,9 @@ func (UnimplementedTenantServiceServer) UpdateBranch(context.Context, *UpdateBra
 }
 func (UnimplementedTenantServiceServer) ListMembers(context.Context, *ListMembersRequest) (*ListMembersResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ListMembers not implemented")
+}
+func (UnimplementedTenantServiceServer) ListMembersByIdAccount(context.Context, *ListMembersByIdAccountRequest) (*ListMembersByIdAccountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListMembersByIdAccount not implemented")
 }
 func (UnimplementedTenantServiceServer) AddMember(context.Context, *AddMemberRequest) (*AddMemberResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method AddMember not implemented")
@@ -460,6 +476,24 @@ func _TenantService_ListMembers_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TenantService_ListMembersByIdAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListMembersByIdAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TenantServiceServer).ListMembersByIdAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TenantService_ListMembersByIdAccount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TenantServiceServer).ListMembersByIdAccount(ctx, req.(*ListMembersByIdAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _TenantService_AddMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(AddMemberRequest)
 	if err := dec(in); err != nil {
@@ -592,6 +626,10 @@ var TenantService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListMembers",
 			Handler:    _TenantService_ListMembers_Handler,
+		},
+		{
+			MethodName: "ListMembersByIdAccount",
+			Handler:    _TenantService_ListMembersByIdAccount_Handler,
 		},
 		{
 			MethodName: "AddMember",
