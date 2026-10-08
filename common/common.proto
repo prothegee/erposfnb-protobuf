@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package erposfnb.common;
+
+option go_package = "github.com/prothegee/erposfnb-protobuf/common";
+
+// Currency is the money unit of a price field.
+// Tag 0 is reserved and never carries a real value.
+enum Currency {
+  CURRENCY_UNSPECIFIED = 0;
+  CURRENCY_USD = 1;
+}
+
+// MeasureType is the mass and volume unit family.
+// Mass converts to mass only, volume converts to volume only.
+// The unit list is shared by pos and warehouse stock rows.
+enum MeasureType {
+  MEASURE_TYPE_UNSPECIFIED = 0;
+  MEASURE_TYPE_TON = 1;
+  MEASURE_TYPE_KG = 2;
+  MEASURE_TYPE_G = 3;
+  MEASURE_TYPE_MG = 4;
+  MEASURE_TYPE_L = 5;
+  MEASURE_TYPE_ML = 6;
+}
+
+// LengthType is the length unit family for a box dimension.
+enum LengthType {
+  LENGTH_TYPE_UNSPECIFIED = 0;
+  LENGTH_TYPE_MM = 1;
+  LENGTH_TYPE_CM = 2;
+  LENGTH_TYPE_M = 3;
+  LENGTH_TYPE_KM = 4;
+}
+
+// RoleAccess is the role a member holds in a tenant branch.
+// Gateway forwards the value to tenant without a rewrite.
+enum RoleAccess {
+  ROLE_ACCESS_UNSPECIFIED = 0;
+  ROLE_ACCESS_NONE = 1;
+  ROLE_ACCESS_POS = 2;
+  ROLE_ACCESS_ERP = 3;
+  ROLE_ACCESS_WAREHOUSE = 4;
+}
+
+// StockRequestStatus is the shared pos to warehouse request lifecycle.
+// The pos DB enum is a subset and has no rejected value.
+// The warehouse DB enum holds every value.
+enum StockRequestStatus {
+  STOCK_REQUEST_STATUS_UNSPECIFIED = 0;
+  STOCK_REQUEST_STATUS_PENDING = 1;
+  STOCK_REQUEST_STATUS_APPROVED = 2;
+  STOCK_REQUEST_STATUS_REJECTED = 3;
+  STOCK_REQUEST_STATUS_SHIPPED = 4;
+  STOCK_REQUEST_STATUS_RECEIVED = 5;
+}
