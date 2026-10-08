@@ -139,6 +139,17 @@ message ListMembersResponse {
   repeated Member members = 1;
 }
 
+// ListMembersByIdAccountRequest asks for every branch membership of one account.
+// Account calls it at sign in and at refresh to fill the tenant_id, branch_id,
+// and role_access claims of the access token.
+message ListMembersByIdAccountRequest {
+  string id_account_user = 1;
+}
+
+message ListMembersByIdAccountResponse {
+  repeated Member members = 1;
+}
+
 message AddMemberRequest {
   string id_tenant = 1;
   string id_tenant_branch = 2;
@@ -196,6 +207,7 @@ service TenantService {
   rpc GetBranch(GetBranchRequest) returns (GetBranchResponse);
   rpc UpdateBranch(UpdateBranchRequest) returns (UpdateBranchResponse);
   rpc ListMembers(ListMembersRequest) returns (ListMembersResponse);
+  rpc ListMembersByIdAccount(ListMembersByIdAccountRequest) returns (ListMembersByIdAccountResponse);
   rpc AddMember(AddMemberRequest) returns (AddMemberResponse);
   rpc UpdateMember(UpdateMemberRequest) returns (UpdateMemberResponse);
   rpc RemoveMember(RemoveMemberRequest) returns (RemoveMemberResponse);
