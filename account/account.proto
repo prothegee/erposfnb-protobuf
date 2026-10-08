@@ -35,9 +35,13 @@ message SignUpResponse {
 }
 
 // SignInRequest accepts either an email or a username in identifier.
+// tenant_id and branch_id select the active membership when the account holds
+// more than one. Both may stay empty when the account holds exactly one.
 message SignInRequest {
   string identifier = 1;
   string password = 2;
+  string tenant_id = 3;
+  string branch_id = 4;
 }
 
 message SignInResponse {
@@ -55,8 +59,12 @@ message SignOutResponse {
   bool revoked = 1;
 }
 
+// RefreshRequest rotates the opaque refresh token and issues a new access
+// token. The optional tenant_id and branch_id switch the active membership.
 message RefreshRequest {
   string refresh_token = 1;
+  string tenant_id = 2;
+  string branch_id = 3;
 }
 
 message RefreshResponse {
