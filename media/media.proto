@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package erposfnb.media;
+
+option go_package = "github.com/prothegee/erposfnb-protobuf/media";
+
+// MediaSpec points at one media location.
+// scope is the root dir, one of "u", "t", or "w".
+// id_ref is the owner id without dashes, id_ref_branch is empty for the user scope.
+// visibility is a plain string, one of "public" or "private".
+message MediaSpec {
+  string scope = 1;
+  string id_ref = 2;
+  string id_ref_branch = 3;
+  string visibility = 4;
+  string file_name = 5;
+  string content_type = 6;
+}
+
+// UploadMediaRequest writes one file and then calls the related core service
+// so the metadata row lands in the owning database.
+message UploadMediaRequest {
+  MediaSpec spec = 1;
+  bytes content = 2;
+}
+
+message UploadMediaResponse {
+  string path = 1;
+  string visibility = 2;
+}
+
+// UpdateMediaRequest replaces a file or moves it between public and private.
+message UpdateMediaRequest {
+  MediaSpec spec = 1;
+  string previous_path = 2;
+  string previous_visibility = 3;
+  bytes content = 4;
+}
+
+message UpdateMediaResponse {
+  string path = 1;
+  string visibility = 2;
+}
+
+message DeleteMediaRequest {
+  string path = 1;
+  string visibility = 2;
+}
+
+message DeleteMediaResponse {
+  bool deleted = 1;
+}
+
+// MediaService serves static file writes for the gateway.
+// Static reads are served over HTTP and never reach this service.
+service MediaService {
+  rpc UploadMedia(UploadMediaRequest) returns (UploadMediaResponse);
+  rpc UpdateMedia(UpdateMediaRequest) returns (UpdateMediaResponse);
+  rpc DeleteMedia(DeleteMediaRequest) returns (DeleteMediaResponse);
+}
