@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package erposfnb.gateway_stream;
+
+import "common/common.proto";
+import "pos/pos.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/prothegee/erposfnb-protobuf/gateway_stream";
+
+// StreamEvent is one event pushed to the WebSocket hub and written to Kafka.
+// topic is one of "orders", "kitchen", "notifications", or "stock-requests".
+// payload carries the topic specific body, the typed fields below carry the
+// values the stream tests assert on.
+message StreamEvent {
+  string id = 1;
+  string topic = 2;
+  erposfnb.pos.OrderStatus order_status = 3;
+  erposfnb.pos.PaymentStatus payment_status = 4;
+  erposfnb.common.RoleAccess role_access = 5;
+  bytes payload = 6;
+  google.protobuf.Timestamp occurred_at = 7;
+}
+
+// PublishRequest carries the origin service id that producer_auth tests
+// against the allowed producer list.
+message PublishRequest {
+  string origin_service = 1;
+  StreamEvent event = 2;
+}
+
+message PublishResponse {
+  string event_id = 1;
+  bool accepted = 2;
+}
+
+// StreamService is the producer ingress on port 50003.
+// An internal service calls Publish, the service authorizes the origin,
+// then writes the event to Kafka and fans it out to live WebSocket clients.
+service StreamService {
+  rpc Publish(PublishRequest) returns (PublishResponse);
+}
